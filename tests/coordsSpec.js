@@ -59,5 +59,35 @@ define(['coords'], function(coords) {
             expect(convert.phi).toBeCloseTo(sphere.phi, 10);
         });
     });
+    describe("coords.cylindrical", function(){
+        var cart;
+        var sphere;
+        var cyl;
+        var convert;
+        beforeEach(function() {
+            cart = {x: 15/4, y: 5*Math.sqrt(3)/4, z: 5/2};
+            sphere = {r: 5, theta: Math.PI/3, phi: Math.PI/6};
+            cyl = {r: 5*Math.sqrt(3)/2, theta: Math.PI/6, z: 5/2};
+        });
+
+        it("returns cylindrical objects unchanged", function(){
+            convert = coords.cylindrical(cyl);
+            expect(convert.r).toBeCloseTo(cyl.r, 10);
+            expect(convert.theta).toBeCloseTo(cyl.theta, 10);
+            expect(convert.z).toBeCloseTo(cyl.z, 10);
+        });
+        it("converts cartesian objects to cylindrical", function(){
+            convert = coords.cylindrical(cart);
+            expect(convert.r).toBeCloseTo(cyl.r, 10);
+            expect(convert.theta).toBeCloseTo(cyl.theta, 10);
+            expect(convert.z).toBeCloseTo(cyl.z, 10);
+        });
+        it("converts spherical objects to cylindrical", function(){
+            convert = coords.cylindrical(sphere);
+            expect(convert.r).toBeCloseTo(cyl.r, 10);
+            expect(convert.theta).toBeCloseTo(cyl.theta, 10);
+            expect(convert.z).toBeCloseTo(cyl.z, 10);
+        });
+    });
 });
 

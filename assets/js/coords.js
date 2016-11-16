@@ -42,6 +42,25 @@ define('coords', ['lodash'], function(_) {
                 };
             }
         },
+        cylindrical: function(pos_obj) {
+            if (_.has(pos_obj, 'x')) {
+                return {
+                    r: Math.sqrt(pos_obj.x*pos_obj.x + pos_obj.y*pos_obj.y),
+                    theta: Math.atan2(pos_obj.y, pos_obj.x),
+                    z: pos_obj.z
+                };
+            }
+            if (_.has(pos_obj, 'phi')) {
+                return {
+                    r: pos_obj.r*Math.sin(pos_obj.theta),
+                    theta: pos_obj.phi,
+                    z: pos_obj.r*Math.cos(pos_obj.theta)
+                };
+            }
+            if (_.has(pos_obj, 'theta')) {
+                return pos_obj;
+            }
+        },
     };
     return module;
 });
